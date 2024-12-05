@@ -1,25 +1,42 @@
 package com.udemy.helpdesk.domain.enums.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.udemy.helpdesk.domain.enums.Profile;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Entity
 @Getter
 @Setter
 @EqualsAndHashCode
-public abstract class Person {
+public abstract class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String name;
+
+    @Column(unique = true)
     protected String cpf;
+
+    @Column(unique = true)
     protected String email;
     protected String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PROFILES")
     protected Set<Integer> profiles = new HashSet<>();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate creationDate = LocalDate.now();
 
     public Person() {
