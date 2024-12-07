@@ -1,8 +1,7 @@
-package com.udemy.helpdesk.domain.enums.domain;
+package com.udemy.helpdesk.domain;
 
 import com.udemy.helpdesk.domain.enums.Profile;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -24,7 +23,7 @@ public class Technician extends Person {
         addProfiles(Profile.TECHNICIAN);
     }
 
-    public Technician(Integer id, String name, String cpf, String email, String password, List<Ticket> tickets) {
+    public Technician(Integer id, String name, String cpf, String email, String password) {
         super(id, name, cpf, email, password);
         addProfiles(Profile.TECHNICIAN);
     }

@@ -1,4 +1,4 @@
-package com.udemy.helpdesk.domain.enums.domain;
+package com.udemy.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.udemy.helpdesk.domain.enums.Profile;
