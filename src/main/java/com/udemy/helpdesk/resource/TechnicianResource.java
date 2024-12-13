@@ -1,6 +1,6 @@
 package com.udemy.helpdesk.resource;
 
-import com.udemy.helpdesk.domain.Technician;
+import com.udemy.helpdesk.domain.dtos.TechnicianDTO;
 import com.udemy.helpdesk.services.TechnicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ public class TechnicianResource {
     private TechnicianService technicianService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Technician> findById(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(technicianService.findById(id));
+    public ResponseEntity<TechnicianDTO> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(new TechnicianDTO(technicianService.findById(id)));
     }
 
 }
