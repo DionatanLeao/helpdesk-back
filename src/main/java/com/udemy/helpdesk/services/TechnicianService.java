@@ -1,6 +1,7 @@
 package com.udemy.helpdesk.services;
 
 import com.udemy.helpdesk.domain.Technician;
+import com.udemy.helpdesk.domain.dtos.TechnicianDTO;
 import com.udemy.helpdesk.repository.TechnicianRepository;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,10 @@ public class TechnicianService {
     public Technician findById(Integer id) {
         return technicianRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Technician not found for id: " + id));
+    }
+
+    public Technician create(TechnicianDTO technicianDto) {
+        technicianDto.setId(null);
+        return technicianRepository.save(new Technician(technicianDto));
     }
 }
