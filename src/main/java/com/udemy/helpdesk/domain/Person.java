@@ -5,6 +5,7 @@ import com.udemy.helpdesk.domain.enums.Profile;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,18 +25,15 @@ public abstract class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String name;
-
+    //@CPF
     @Column(unique = true)
     protected String cpf;
-
     @Column(unique = true)
     protected String email;
     protected String password;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PROFILES")
     protected Set<Integer> profiles = new HashSet<>();
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate creationDate = LocalDate.now();
 

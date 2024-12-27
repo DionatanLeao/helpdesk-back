@@ -1,7 +1,7 @@
 package com.udemy.helpdesk.services;
 
 import com.udemy.helpdesk.domain.Client;
-import com.udemy.helpdesk.domain.Priority;
+import com.udemy.helpdesk.domain.enums.Priority;
 import com.udemy.helpdesk.domain.Technician;
 import com.udemy.helpdesk.domain.Ticket;
 import com.udemy.helpdesk.domain.enums.Profile;

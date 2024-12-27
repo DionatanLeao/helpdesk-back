@@ -37,6 +37,22 @@ public class TechnicianService {
         return technicianRepository.save(new Technician(technicianDto));
     }
 
+    public Technician update(Integer id, TechnicianDTO technicianDTO) {
+        technicianDTO.setId(id);
+        Technician updateTechnician = findById(id);
+        validByCpfAndEmail(technicianDTO);
+        updateTechnician = new Technician(technicianDTO);
+        return technicianRepository.save(updateTechnician);
+    }
+
+    public void delete(Integer id) {
+        Technician technician = findById(id);
+        if (technician.getTickets().size() > 0) {
+            throw new DataIntegrityViolationException("Technician has work orders and cannot be deleted!");
+        }
+        technicianRepository.deleteById(id);
+    }
+
     private void validByCpfAndEmail(TechnicianDTO technicianDto) {
         Optional<Person> validate = personRepository.findByCpf(technicianDto.getCpf());
         if (validate.isPresent() && !Objects.equals(validate.get().getId(), technicianDto.getId())) {
@@ -46,13 +62,5 @@ public class TechnicianService {
         if (validate.isPresent() && !Objects.equals(validate.get().getId(), technicianDto.getId())) {
             throw new DataIntegrityViolationException("E-mail already registered in the system");
         }
-    }
-
-    public void delete(Integer id) {
-        Technician technician = findById(id);
-        if (technician.getTickets().size() > 0) {
-            throw new DataIntegrityViolationException("Technician has work orders and cannot be deleted!");
-        }
-        technicianRepository.deleteById(id);
     }
 }
