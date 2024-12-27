@@ -41,4 +41,10 @@ public class TechnicianResource {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<TechnicianDTO> delete(@PathVariable Integer id) {
+        technicianService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
