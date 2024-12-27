@@ -1,6 +1,7 @@
 package com.udemy.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.udemy.helpdesk.domain.enums.Priority;
 import com.udemy.helpdesk.domain.enums.Status;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

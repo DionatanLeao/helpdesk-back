@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,11 @@ public class TechnicianResource {
                 .buildAndExpand(technician.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TechnicianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicianDTO technicianDTO) {
+        return ResponseEntity.ok().body(new TechnicianDTO(technicianService.update(id, technicianDTO)));
     }
 
     @DeleteMapping("/{id}")

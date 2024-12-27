@@ -1,4 +1,4 @@
-package com.udemy.helpdesk.domain;
+package com.udemy.helpdesk.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
