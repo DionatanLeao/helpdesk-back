@@ -47,4 +47,12 @@ public class TechnicianService {
             throw new DataIntegrityViolationException("E-mail already registered in the system");
         }
     }
+
+    public void delete(Integer id) {
+        Technician technician = findById(id);
+        if (technician.getTickets().size() > 0) {
+            throw new DataIntegrityViolationException("Technician has work orders and cannot be deleted!");
+        }
+        technicianRepository.deleteById(id);
+    }
 }
