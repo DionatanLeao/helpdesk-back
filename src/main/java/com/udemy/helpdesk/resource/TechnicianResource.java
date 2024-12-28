@@ -33,7 +33,7 @@ public class TechnicianResource {
     }
 
     @PostMapping
-    public ResponseEntity<TechnicianDTO> create(@RequestBody TechnicianDTO technicianDto) {
+    public ResponseEntity<TechnicianDTO> create(@RequestBody @Valid TechnicianDTO technicianDto) {
         Technician technician = technicianService.create(technicianDto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
