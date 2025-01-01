@@ -11,6 +11,7 @@ import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,17 +41,23 @@ public class TicketService {
         return ticketRepository.save(newTicket(ticketDto));
     }
 
+    public Ticket update(Integer id, TicketDTO ticketDto) {
+        ticketDto.setId(id);
+        Ticket updateTicket = findById(id);
+        updateTicket = newTicket(ticketDto);
+        return ticketRepository.save(updateTicket);
+    }
+
     private Ticket newTicket(TicketDTO ticketDto) {
         Technician technician = technicianService.findById(ticketDto.getTechnician());
         Client client = clientService.findById(ticketDto.getClient());
         return buildTicket(ticketDto, technician, client);
     }
 
-    private Ticket buildTicket(TicketDTO ticketDto, Technician technician, Client client) {
+    private static Ticket buildTicket(TicketDTO ticketDto, Technician technician, Client client) {
         Ticket ticket = new Ticket();
-        if (!Objects.isNull(ticketDto.getId())) {
-            ticket.setId(ticketDto.getId());
-        }
+        validatedIsUpdate(ticketDto, ticket);
+        validatedClosingDate(ticketDto, ticket);
         ticket.setTechnician(technician);
         ticket.setClient(client);
         ticket.setPriority(Priority.toEnum(ticketDto.getPriority()));
@@ -58,5 +65,17 @@ public class TicketService {
         ticket.setTitle(ticketDto.getTitle());
         ticket.setObservations(ticketDto.getObservations());
         return ticket;
+    }
+
+    private static void validatedIsUpdate(TicketDTO ticketDto, Ticket ticket) {
+        if (!Objects.isNull(ticketDto.getId())) {
+            ticket.setId(ticketDto.getId());
+        }
+    }
+
+    private static void validatedClosingDate(TicketDTO ticketDto, Ticket ticket) {
+        if (ticketDto.getStatus().equals(2)) {
+            ticket.setClosingDate(LocalDate.now());
+        }
     }
 }
