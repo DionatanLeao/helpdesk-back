@@ -13,7 +13,7 @@ public enum Status {
     private Integer code;
     private String description;
 
-    public static Status toEnum(Integer code, String description) {
+    public static Status toEnum(Integer code) {
         if (code == null) {
             return null;
         }
