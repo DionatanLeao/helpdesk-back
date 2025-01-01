@@ -41,4 +41,9 @@ public class TicketResource {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TicketDTO> update(@PathVariable Integer id, @RequestBody @Valid TicketDTO ticketDto) {
+        return ResponseEntity.ok().body(new TicketDTO(ticketService.update(id, ticketDto)));
+    }
 }
