@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -21,11 +22,17 @@ public class TicketDTO implements Serializable {
     private LocalDate openingDate = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate closingDate;
+    @NotNull(message = "The PRIORITY field is required")
     private Integer priority;
+    @NotNull(message = "The STATUS field is required")
     private Integer status;
+    @NotNull(message = "The TITLE field is required")
     private String title;
+    @NotNull(message = "The OBSERVATIONS field is required")
     private String observations;
+    @NotNull(message = "The TECHNICIAN field is required")
     private Integer technician;
+    @NotNull(message = "The CLIENT field is required")
     private Integer client;
     private String technicianName;
     private String clientName;

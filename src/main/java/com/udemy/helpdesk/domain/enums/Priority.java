@@ -13,7 +13,7 @@ public enum Priority {
     private Integer code;
     private String description;
 
-    public static Priority toEnum(Integer code, String description) {
+    public static Priority toEnum(Integer code) {
         if (code == null) {
             return null;
         }
