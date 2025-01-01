@@ -9,12 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/tickets")
 public class TicketResource {
 
     @Autowired
     private TicketService ticketService;
+
+    @GetMapping
+    public ResponseEntity<List<TicketDTO>> findAll() {
+        return ResponseEntity.ok()
+                .body(ticketService.findAll().stream().map(TicketDTO::new).collect(Collectors.toList()));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TicketDTO> findById(@PathVariable Integer id) {
