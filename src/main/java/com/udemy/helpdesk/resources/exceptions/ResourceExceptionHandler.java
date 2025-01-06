@@ -1,4 +1,4 @@
-package com.udemy.helpdesk.resource.exceptions;
+package com.udemy.helpdesk.resources.exceptions;
 
 import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;

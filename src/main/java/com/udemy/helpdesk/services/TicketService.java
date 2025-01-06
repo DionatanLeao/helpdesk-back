@@ -6,7 +6,7 @@ import com.udemy.helpdesk.domain.Ticket;
 import com.udemy.helpdesk.domain.dtos.TicketDTO;
 import com.udemy.helpdesk.domain.enums.Priority;
 import com.udemy.helpdesk.domain.enums.Status;
-import com.udemy.helpdesk.repository.TicketRepository;
+import com.udemy.helpdesk.repositories.TicketRepository;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

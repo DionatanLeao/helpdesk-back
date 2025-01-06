@@ -3,11 +3,12 @@ package com.udemy.helpdesk.services;
 import com.udemy.helpdesk.domain.Person;
 import com.udemy.helpdesk.domain.Technician;
 import com.udemy.helpdesk.domain.dtos.TechnicianDTO;
-import com.udemy.helpdesk.repository.PersonRepository;
-import com.udemy.helpdesk.repository.TechnicianRepository;
+import com.udemy.helpdesk.repositories.PersonRepository;
+import com.udemy.helpdesk.repositories.TechnicianRepository;
 import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class TechnicianService {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     public List<Technician> findAll() {
         return technicianRepository.findAll();
     }
@@ -33,6 +37,7 @@ public class TechnicianService {
 
     public Technician create(TechnicianDTO technicianDto) {
         technicianDto.setId(null);
+        technicianDto.setPassword(encoder.encode(technicianDto.getPassword()));
         validByCpfAndEmail(technicianDto);
         return technicianRepository.save(new Technician(technicianDto));
     }
