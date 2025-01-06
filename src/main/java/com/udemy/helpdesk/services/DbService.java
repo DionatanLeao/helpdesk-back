@@ -26,10 +26,10 @@ public class DbService {
     private BCryptPasswordEncoder encoder;
 
     public void instanceDb() {
-        Technician tec1 = new Technician(null, "Tec 1", "532.429.590-60", "tec1@email.com", encoder.encode("123"));
+        Technician tec1 = new Technician(null, "Tec 1", "532.429.590-60", "tec1@email.com", encoder.encode("password@123"));
         tec1.addProfiles(Profile.ADMIN);
 
-        Client cli1 = new Client(null, "Cli 1", "415.042.640-61", "cli1@email", encoder.encode("123"));
+        Client cli1 = new Client(null, "Cli 1", "415.042.640-61", "cli1@email.com", encoder.encode("password@123"));
 
         Ticket t1 = new Ticket(null, Priority.MEDIUM, Status.PROGRESS, "Ticket 01", "First Ticket", tec1, cli1);
 
