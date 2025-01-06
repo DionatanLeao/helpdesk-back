@@ -8,6 +8,7 @@ import com.udemy.helpdesk.repository.PersonRepository;
 import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class ClientService {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     public List<Client> findAll() {
         return clientRepository.findAll();
     }
@@ -33,6 +37,7 @@ public class ClientService {
 
     public Client create(ClientDTO clientDto) {
         clientDto.setId(null);
+        clientDto.setPassword(encoder.encode(clientDto.getPassword()));
         validByCpfAndEmail(clientDto);
         return clientRepository.save(new Client(clientDto));
     }
