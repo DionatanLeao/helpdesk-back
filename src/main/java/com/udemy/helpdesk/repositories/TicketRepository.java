@@ -1,4 +1,4 @@
-package com.udemy.helpdesk.repository;
+package com.udemy.helpdesk.repositories;
 
 import com.udemy.helpdesk.domain.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;

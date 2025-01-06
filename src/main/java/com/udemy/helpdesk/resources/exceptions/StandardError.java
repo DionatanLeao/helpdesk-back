@@ -1,4 +1,4 @@
-package com.udemy.helpdesk.resource.exceptions;
+package com.udemy.helpdesk.resources.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

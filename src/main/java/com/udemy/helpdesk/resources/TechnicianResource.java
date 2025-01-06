@@ -1,4 +1,4 @@
-package com.udemy.helpdesk.resource;
+package com.udemy.helpdesk.resources;
 
 import com.udemy.helpdesk.domain.Technician;
 import com.udemy.helpdesk.domain.dtos.TechnicianDTO;

@@ -1,7 +1,7 @@
 package com.udemy.helpdesk.services;
 
 import com.udemy.helpdesk.domain.Person;
-import com.udemy.helpdesk.repository.PersonRepository;
+import com.udemy.helpdesk.repositories.PersonRepository;
 import com.udemy.helpdesk.security.UserSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
