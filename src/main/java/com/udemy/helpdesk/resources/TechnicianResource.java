@@ -5,6 +5,7 @@ import com.udemy.helpdesk.domain.dtos.TechnicianDTO;
 import com.udemy.helpdesk.services.TechnicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,7 @@ public class TechnicianResource {
                 .body(new TechnicianDTO(technicianService.findById(id)));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TechnicianDTO> create(@RequestBody @Valid TechnicianDTO technicianDto) {
         Technician technician = technicianService.create(technicianDto);
@@ -43,11 +45,13 @@ public class TechnicianResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<TechnicianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicianDTO technicianDTO) {
         return ResponseEntity.ok().body(new TechnicianDTO(technicianService.update(id, technicianDTO)));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<TechnicianDTO> delete(@PathVariable Integer id) {
         technicianService.delete(id);
