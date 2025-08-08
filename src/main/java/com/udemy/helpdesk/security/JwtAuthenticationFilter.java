@@ -12,9 +12,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
-
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -40,23 +38,23 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
         String username = ((UserSpringSecurity) authResult.getPrincipal()).getUsername();
-        response.addHeader("access-control-expose-headers", "Authorization");
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Authorization", "Bearer " + jwtUtil.generateToken(username));
     }
-
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
-        response.setStatus(401);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
-        response.getWriter().append(json());
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json(request));
     }
 
-    private CharSequence json() {
-        return "{"
-                + "\"timestamp\": " + new Date().getTime() + ", "
-                + "\"status\": 401, "
-                + "\"error\": \"Unauthorized\", "
-                + "\"message\": Invalid email or password, "
-                + "\"path\": \"login\"}";
+    private String json(HttpServletRequest request) {
+        long timestamp = System.currentTimeMillis();
+        return String.format(
+                "{ \"timestamp\": %d, \"status\": 401, \"error\": \"Unauthorized\", \"message\": \"Email ou senha inválidos\", \"path\": \"%s\" }",
+                timestamp,
+                request.getRequestURI()
+        );
     }
 }
