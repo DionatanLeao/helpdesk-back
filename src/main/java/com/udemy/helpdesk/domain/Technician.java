@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -38,7 +37,7 @@ public class Technician extends Person {
         this.cpf = technicianDto.getCpf();
         this.email = technicianDto.getEmail();
         this.password = technicianDto.getPassword();
-        this.profiles = technicianDto.getProfiles().stream().map(Profile::getCode).collect(Collectors.toSet());
+        this.profiles = technicianDto.getProfiles();
         this.creationDate = technicianDto.getCreationDate();
     }
 }
