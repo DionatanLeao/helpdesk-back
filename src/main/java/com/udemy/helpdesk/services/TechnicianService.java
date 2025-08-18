@@ -44,10 +44,8 @@ public class TechnicianService {
 
     public Technician update(Integer id, TechnicianDTO technicianDTO) {
         technicianDTO.setId(id);
-        Technician updateTechnician = findById(id);
         validByCpfAndEmail(technicianDTO);
-        updateTechnician = new Technician(technicianDTO);
-        return technicianRepository.save(updateTechnician);
+        return technicianRepository.save(new Technician(technicianDTO));
     }
 
     public void delete(Integer id) {
