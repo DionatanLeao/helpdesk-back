@@ -42,10 +42,17 @@ public class TechnicianService {
         return technicianRepository.save(new Technician(technicianDto));
     }
 
-    public Technician update(Integer id, TechnicianDTO technicianDTO) {
-        technicianDTO.setId(id);
-        validByCpfAndEmail(technicianDTO);
-        return technicianRepository.save(new Technician(technicianDTO));
+    public Technician update(Integer id, TechnicianDTO technicianDto) {
+        technicianDto.setId(id);
+        Technician oldTechnician = findById(id);
+
+        if(!technicianDto.getPassword().equals(oldTechnician.getPassword())) {
+            technicianDto.setPassword(encoder.encode(technicianDto.getPassword()));
+        }
+
+        validByCpfAndEmail(technicianDto);
+        oldTechnician = new Technician(technicianDto);
+        return technicianRepository.save(oldTechnician);
     }
 
     public void delete(Integer id) {

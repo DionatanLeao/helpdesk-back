@@ -44,10 +44,15 @@ public class ClientService {
 
     public Client update(Integer id, ClientDTO clientDto) {
         clientDto.setId(id);
-        Client updateClient = findById(id);
+        Client oldClient = findById(id);
+
+        if(!clientDto.getPassword().equals(oldClient.getPassword())) {
+            clientDto.setPassword(encoder.encode(clientDto.getPassword()));
+        }
+
         validByCpfAndEmail(clientDto);
-        updateClient = new Client(clientDto);
-        return clientRepository.save(updateClient);
+        oldClient = new Client(clientDto);
+        return clientRepository.save(oldClient);
     }
 
     public void delete(Integer id) {
