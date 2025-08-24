@@ -46,8 +46,8 @@ public class ClientDTO implements Serializable {
         addProfiles(Profile.CLIENT);
     }
 
-    public Set<Profile> getProfiles() {
-        return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
+    public Set<Integer> getProfiles() {
+        return this.profiles;
     }
 
     public void addProfiles(Profile profile) {
