@@ -38,7 +38,7 @@ public class Client extends Person {
         this.cpf = clientDto.getCpf();
         this.email = clientDto.getEmail();
         this.password = clientDto.getPassword();
-        this.profiles = clientDto.getProfiles().stream().map(Profile::getCode).collect(Collectors.toSet());
+        this.profiles = clientDto.getProfiles();
         this.creationDate = clientDto.getCreationDate();
     }
 }
